@@ -1,0 +1,100 @@
+<template>
+	<view>
+		<swiper autoplay>
+			<swiper-item @click="jumpLink(item.href_type,item.href_value)" v-for="(item,index) in carouselList" :key="index">
+				<image :src="item.img_url" class="image" mode="widthFix"></image>
+			</swiper-item>
+		</swiper>
+		<view>
+			<navigator hover-class="none" :url="`/pages/fisher/detail?loadId=${item.fisher_id}`" v-for="(item,index) in fisherList" :key="index" class="card flex default-window" style="align-items: flex-start;">
+				<view class="head-window">
+					<image :src="item.headimgurl" class="head" mode="widthFix"></image>
+				</view>
+				<view style="flex: 1;padding-left: 30rpx;">
+					<view class="font-red">{{item.nickname}}</view>
+					<view class="u-tips-color u-font-sm content">{{item.introduction}}</view>
+				</view>
+			</navigator>
+		</view>
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+				carouselList: [],
+				fisherList: [],
+			};
+		},
+		onReady() {
+			this.loadCarousel();
+			this.loadFisherList();
+		},
+		methods: {
+			jumpLink(type, value) {
+				switch (type) {
+			
+					case 'article':
+						uni.navigateTo({
+							url: '/pages/article/detail?loadId=' + value
+						})
+						break;
+					case 'activity':
+						uni.navigateTo({
+							url: '/pages/activity/detail?loadId=' + value
+						})
+						break;
+					default:
+						
+						break;
+				}
+			},
+			//加载轮播
+			loadCarousel() {
+				let params = {
+					type: 'jalp_index'
+				};
+				this.$api('Carousel/lists', params).then(data => {
+					if (data.status == 1) {
+
+						this.carouselList = data.data.carousel_list;
+					} else {
+						this.$showToast(data.msg);
+					}
+				});
+			},
+			//加载公益组织列表
+			loadFisherList() {
+				this.$api('GYGCFisher/index').then(data => {
+					console.log(data);
+					this.fisherList = data.data.fisher_list;
+				});
+			},
+		}
+	}
+</script>
+
+<style lang="scss">
+	.head-window {
+		width: 120rpx;
+		height: 120rpx;
+
+		.head {
+			width: 120rpx;
+			height: 120rpx;
+			display: block;
+			border-radius: 50%;
+		}
+	}
+
+	.content {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 2; //多行在这里修改数字即可
+		overflow: hidden;
+		/* autoprefixer: ignore next */
+		-webkit-box-orient: vertical;
+	}
+</style>

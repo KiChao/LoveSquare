@@ -6,14 +6,176 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "彩虹舟"
 			}
+		}, {
+			"path": "pages/usercenter/usercenter",
+			"style": {
+				"navigationBarTitleText": "个人中心",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/activity/detail",
+			"style": {
+				"navigationBarTitleText": "活动详情",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/article/article",
+			"style": {
+				"navigationBarTitleText": "资讯",
+				"enablePullDownRefresh": false
+			}
+
 		}
-	],
+	    ,{
+            "path" : "pages/article/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "资讯详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/fisher/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "渔夫号详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/usercenter/integralRecord/integralRecord",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "积分记录",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/usercenter/customer/customer",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "客服",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/usercenter/activityOrder/activityOrder",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "活动报名记录",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/usercenter/systemMessage/systemMessage",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "系统消息",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/search",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "搜索",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/fisher/fisher",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "公益团队",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/public/login",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "登录",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/usercenter/poster/poster",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "推广海报",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/public/bind1",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "绑定手机",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/public/bind",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "绑定手机",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"navigationBarTitleText": "彩虹舟",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#f3f4f6"
+	},
+	"tabBar": {
+		"color": "#000000",
+		"selectedColor": "#fa3534",
+		"borderStyle": "white",
+		"backgroundColor": "#ffffff",
+
+		"list": [{
+				"pagePath": "pages/index/index",
+				"iconPath":"static/icon/shouye.png",
+				"selectedIconPath":"static/icon/shouye-hover.png",
+				"text": "公益广场"
+			},
+			{
+				"pagePath": "pages/fisher/fisher",
+				"iconPath":"static/icon/tuandui.png",
+				"selectedIconPath":"static/icon/tuandui-hover.png",
+				"text": "公益团队"
+			},
+			{
+				"pagePath": "pages/article/article",
+				"iconPath":"static/icon/zixun.png",
+				"selectedIconPath":"static/icon/zixun-hover.png",
+				"text": "公益资讯"
+			},
+			{
+				"pagePath": "pages/usercenter/usercenter",	
+				"iconPath":"static/icon/gerenzhongxin.png",
+				"selectedIconPath":"./static/icon/gerenzhongxin-hover.png",
+				"text": "个人中心"
+			}
+		]
 	}
 }
