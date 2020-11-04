@@ -29,7 +29,7 @@
 				carouselList: [],
 				modalList: [],
 				activityList: [],
-				page: 1,
+				page: 0,
 			}
 		},
 		onLoad(data) {

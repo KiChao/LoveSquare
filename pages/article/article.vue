@@ -15,7 +15,7 @@
 		data() {
 			return {
 				articleList: [],
-				page: 1,
+				page: 0,
 				searchValue:'',
 			}
 		},
