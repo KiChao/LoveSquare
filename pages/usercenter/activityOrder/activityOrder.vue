@@ -8,7 +8,7 @@
 				<u-empty></u-empty>
 			</view>
 			<view v-for="(item,index) in activityOrder0" :key="index" class="card">
-				<image :src="item.activity_info.main_cover" style="width: 100%;height: 400rpx;display: block;border-top-left-radius: 16rpx;border-top-right-radius: 16rpx;"
+				<image :src="item.img" style="width: 100%;height: 400rpx;display: block;border-top-left-radius: 16rpx;border-top-right-radius: 16rpx;"
 				 mode="aspectFill"></image>
 				<view class="default-window">
 					<view>{{item.activity_info.title}}</view>
@@ -22,7 +22,7 @@
 				<u-empty></u-empty>
 			</view>
 			<view v-for="(item,index) in activityOrder1" :key="index" class="card">
-				<image :src="item.activity_info.main_cover" style="width: 100%;height: 400rpx;display: block;border-top-left-radius: 16rpx;border-top-right-radius: 16rpx;"
+				<image :src="item.img" style="width: 100%;height: 400rpx;display: block;border-top-left-radius: 16rpx;border-top-right-radius: 16rpx;"
 				 mode="aspectFill"></image>
 				<view class="default-window">
 					<view>{{item.activity_info.title}}</view>
@@ -36,7 +36,7 @@
 				<u-empty></u-empty>
 			</view>
 			<view v-for="(item,index) in activityOrder2" :key="index" class="card">
-				<image :src="item.activity_info.main_cover" style="width: 100%;height: 400rpx;display: block;border-top-left-radius: 16rpx;border-top-right-radius: 16rpx;"
+				<image :src="item.img" style="width: 100%;height: 400rpx;display: block;border-top-left-radius: 16rpx;border-top-right-radius: 16rpx;"
 				 mode="aspectFill"></image>
 				<view class="default-window">
 					<view>{{item.activity_info.title}}</view>
@@ -50,7 +50,7 @@
 				<u-empty></u-empty>
 			</view>
 			<view v-for="(item,index) in activityOrder3" :key="index" class="card">
-				<image :src="item.activity_info.main_cover" style="width: 100%;height: 400rpx;display: block;border-top-left-radius: 16rpx;border-top-right-radius: 16rpx;"
+				<image :src="item.img" style="width: 100%;height: 400rpx;display: block;border-top-left-radius: 16rpx;border-top-right-radius: 16rpx;"
 				 mode="aspectFill"></image>
 				<view class="default-window">
 					<view>{{item.activity_info.title}}</view>

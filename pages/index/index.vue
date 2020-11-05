@@ -6,8 +6,9 @@
 				 placeholder="输入搜索内容" v-model="searchValue" @search="search"></u-search>
 			</view>
 		</u-sticky>
-		<swiper autoplay>
-			<swiper-item @click="jumpLink(item.href_type,item.href_value)" v-for="(item,index) in carouselList" :key="index">
+		<swiper style="height: 75vw;" autoplay>
+			<swiper-item @click="jumpLink(item.href_type,item.href_value,item.href_path)" v-for="(item,index) in carouselList"
+			 :key="index">
 				<image :src="item.img_url" class="image" mode="widthFix"></image>
 			</swiper-item>
 		</swiper>
@@ -55,7 +56,7 @@
 					url: '/pages/index/search?searchValue=' + this.searchValue + '&&type=0'
 				})
 			},
-			jumpLink(type, value) {
+			jumpLink(type, value, path = 'pages/index/index') {
 				switch (type) {
 
 					case 'article':
@@ -68,8 +69,18 @@
 							url: '/pages/activity/detail?loadId=' + value
 						})
 						break;
+					case 'miniProgram':
+						wx.navigateToMiniProgram({
+							appId: value,
+							path: path,
+						})
+						break;
+					case 'other':
+						uni.navigateTo({
+							url: value
+						})
+						break;
 					default:
-
 						break;
 				}
 			},

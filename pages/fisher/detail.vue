@@ -5,10 +5,8 @@
 			<image :src="fisherDetail.headimgurl" style="width: 100rpx;height: 100rpx;display: block;border-radius: 50%;" mode="widthFix"></image>
 			<view class="name-window">
 				<view class="bold">{{fisherDetail.nickname}}</view>
-				<view class="u-font-sm u-tips-color">
-					{{fisherDetail.introduction}}
-				</view>
-			</view> 
+				<view><u-tag v-if="fisherDetail.is_subscribe==1" text="已认证" type="success" mode="dark"></u-tag></view>
+			</view>
 		</view>
 		<u-sticky>
 			<view class="default-window white">
@@ -39,6 +37,38 @@
 				<u-empty text="暂无资讯"></u-empty>
 			</view>
 		</view>
+		<view v-if="current==3">
+			<view class="flex white u-text-center default-window">
+				<navigator class="integral-item">
+					<view class="value">{{fisherDetail.love}}</view>
+					<view class="title">爱心</view>
+				</navigator>
+				<navigator class="integral-item">
+					<view class="value">{{fisherDetail.popularity}}</view>
+					<view class="title">人气</view>
+				</navigator>
+				<navigator class="integral-item">
+					<view class="value">{{fisherDetail.subscribes}}</view>
+					<view class="title">渔夫</view>
+				</navigator>
+			</view>
+			<view class="default-window flex place white">
+				<view>账号主体</view>
+				<view>{{fisherDetail.company_name}}</view>
+			</view>
+			<view class="default-window flex place white">
+				<view>客服</view>
+				<view>{{fisherDetail.service_phone}}</view>
+			</view>
+			<view class="default-window white">
+				<view>所在地</view>
+				<view class="u-font-12 u-tips-color">{{fisherDetail.company_address}}</view>
+			</view>
+			<view class="default-window white">
+				<view>渔夫号简介</view>
+				<view class="u-font-12 u-tips-color">{{fisherDetail.introduction}}</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -52,6 +82,8 @@
 					name: '活动'
 				}, {
 					name: '资讯',
+				}, {
+					name: '资料',
 				}],
 				current: 0,
 				loadId: 0,
@@ -86,7 +118,7 @@
 		methods: {
 			jumpLink(type, value) {
 				switch (type) {
-			
+
 					case 'article':
 						uni.navigateTo({
 							url: '/pages/article/detail?loadId=' + value
@@ -98,7 +130,7 @@
 						})
 						break;
 					default:
-						
+
 						break;
 				}
 			},
@@ -140,7 +172,7 @@
 					if (data.status == 1) {
 						this.fisherDetail = data.data.fisher;
 						uni.setNavigationBarTitle({
-							title:this.fisherDetail.nickname
+							title: this.fisherDetail.nickname
 						})
 					} else {
 						this.$showModal(data.msg);
@@ -187,5 +219,19 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: flex-start;
+	}
+
+	.integral-item {
+		flex: 1;
+		.value {
+			// font-weight: bold;
+			font-size: 36rpx;
+			line-height: 1.5;
+		}
+		
+		.title {
+			font-size: 24rpx;
+		
+		}
 	}
 </style>

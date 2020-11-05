@@ -104,6 +104,24 @@
 					<u-icon name="arrow-right"></u-icon>
 				</view>
 			</navigator>
+			<navigator hover-class="none" url="/pages/fisher/detail?loadId=101" class="default-window u-border-bottom flex place">
+				<view class="flex">
+					<u-icon name="heart"></u-icon>
+					<view style="padding: 0 30rpx;">公益广场渔夫号</view>
+				</view>
+				<view>
+					<u-icon name="arrow-right"></u-icon>
+				</view>
+			</navigator>
+			<navigator hover-class="none" url="/pages/usercenter/aboutUs/aboutUs" class="default-window u-border-bottom flex place">
+				<view class="flex">
+					<u-icon name="error-circle"></u-icon>
+					<view style="padding: 0 30rpx;">关于我们</view>
+				</view>
+				<view>
+					<u-icon name="arrow-right"></u-icon>
+				</view>
+			</navigator>
 			<navigator v-if="userInfo.celebrity_lv==0" url="/pages/public/bind1" hover-class="none" class="default-window u-border-bottom flex place">
 				<view class="flex">
 					<u-icon name="lock"></u-icon>
