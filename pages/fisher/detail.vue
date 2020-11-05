@@ -5,7 +5,9 @@
 			<image :src="fisherDetail.headimgurl" style="width: 100rpx;height: 100rpx;display: block;border-radius: 50%;" mode="widthFix"></image>
 			<view class="name-window">
 				<view class="bold">{{fisherDetail.nickname}}</view>
-				<view><u-tag v-if="fisherDetail.is_subscribe==1" text="已认证" type="success" mode="dark"></u-tag></view>
+				<view>
+					<u-tag v-if="fisherDetail.is_subscribe==1" text="已认证" type="success" mode="dark"></u-tag>
+				</view>
 			</view>
 		</view>
 		<u-sticky>
@@ -69,6 +71,12 @@
 				<view class="u-font-12 u-tips-color">{{fisherDetail.introduction}}</view>
 			</view>
 		</view>
+		<view v-if="current==4">
+			<product-list :productList="productList"></product-list>
+			<view class="default-window" v-if="productList.length==0">
+				<u-empty text="暂无商品"></u-empty>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -77,13 +85,15 @@
 		data() {
 			return {
 				list: [{
-					name: '首页'
+					name: '首页',
 				}, {
 					name: '活动'
 				}, {
 					name: '资讯',
 				}, {
 					name: '资料',
+				}, {
+					name: '商品',
 				}],
 				current: 0,
 				loadId: 0,
@@ -93,6 +103,7 @@
 				activityList: [], //活动列表
 				articleList: [], //资讯列表
 				modalList: [], //模块图列表
+				productList:[]
 			};
 		},
 		onShareAppMessage() {
@@ -114,6 +125,7 @@
 			this.loadModal();
 			this.loadArticle();
 			this.loadActivity();
+			this.loadProduct();
 		},
 		methods: {
 			jumpLink(type, value) {
@@ -136,6 +148,19 @@
 			},
 			change(index) {
 				this.current = index;
+			},
+			//加载商品
+			loadProduct() {
+			    let params = {
+			        fisher_id: this.loadId,
+			    };
+			    this.$api('Product/lists', params).then(data => {
+			        if (data.status == 1) {
+			            this.productList = data.data.product_list;
+			        } else {
+			            this.$showModal(data.msg);
+			        }
+			    });
 			},
 			//加载渔夫号模块
 			loadModal() {
@@ -223,15 +248,16 @@
 
 	.integral-item {
 		flex: 1;
+
 		.value {
 			// font-weight: bold;
 			font-size: 36rpx;
 			line-height: 1.5;
 		}
-		
+
 		.title {
 			font-size: 24rpx;
-		
+
 		}
 	}
 </style>

@@ -25,7 +25,7 @@
 		}, {
 			"path": "pages/article/article",
 			"style": {
-				"navigationBarTitleText": "资讯",
+				"navigationBarTitleText": "公益资讯",
 				"enablePullDownRefresh": false
 			}
 
