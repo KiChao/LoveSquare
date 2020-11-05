@@ -6,14 +6,14 @@
 				 placeholder="输入搜索内容" v-model="searchValue" @search="search"></u-search>
 			</view>
 		</u-sticky>
-		<swiper style="height: 75vw;" autoplay>
+		<swiper style="height: 56vw;" autoplay>
 			<swiper-item @click="jumpLink(item.href_type,item.href_value,item.href_path)" v-for="(item,index) in carouselList"
 			 :key="index">
 				<image :src="item.img_url" class="image" mode="widthFix"></image>
 			</swiper-item>
 		</swiper>
 		<view class="modal-window">
-			<view @tap="linkJump(item.href_type,item.href_value)" v-for="(item,index) in modalList" :key="index" :style="{width: `${item.width}%`}">
+			<view @tap="jumpLink(item.href_type,item.href_value,item.href_path)" v-for="(item,index) in modalList" :key="index" :style="{width: `${item.width}%`}">
 
 				<u-image :fade="false" :src="item.img_url" width="100%" mode="widthFix"></u-image>
 			</view>
@@ -111,7 +111,7 @@
 			//加载轮播
 			loadCarousel() {
 				let params = {
-					type: 'jalp_index'
+					type: 'gygc_index'
 				};
 				this.$api('Carousel/lists', params).then(data => {
 					if (data.status == 1) {

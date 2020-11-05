@@ -1,12 +1,13 @@
 <template>
 	<view>
-		<swiper autoplay>
-			<swiper-item @click="jumpLink(item.href_type,item.href_value)" v-for="(item,index) in carouselList" :key="index">
+		<swiper style="height: 56vw;" autoplay>
+			<swiper-item @click="jumpLink(item.href_type,item.href_value,item.href_path)" v-for="(item,index) in carouselList" :key="index">
 				<image :src="item.img_url" class="image" mode="widthFix"></image>
 			</swiper-item>
 		</swiper>
 		<view>
-			<navigator hover-class="none" :url="`/pages/fisher/detail?loadId=${item.fisher_id}`" v-for="(item,index) in fisherList" :key="index" class="card flex default-window" style="align-items: flex-start;">
+			<navigator hover-class="none" :url="`/pages/fisher/detail?loadId=${item.fisher_id}`" v-for="(item,index) in fisherList"
+			 :key="index" class="card flex default-window" style="align-items: flex-start;">
 				<view class="head-window">
 					<image :src="item.headimgurl" class="head" mode="widthFix"></image>
 				</view>
@@ -32,9 +33,9 @@
 			this.loadFisherList();
 		},
 		methods: {
-			jumpLink(type, value) {
+			jumpLink(type, value,path = 'pages/index/index') {
 				switch (type) {
-			
+
 					case 'article':
 						uni.navigateTo({
 							url: '/pages/article/detail?loadId=' + value
@@ -45,15 +46,26 @@
 							url: '/pages/activity/detail?loadId=' + value
 						})
 						break;
+					case 'miniProgram':
+						wx.navigateToMiniProgram({
+							appId: value,
+							path: path,
+						})
+						break;
+					case 'other':
+						uni.navigateTo({
+							url: value
+						})
+						break;
 					default:
-						
+
 						break;
 				}
 			},
 			//加载轮播
 			loadCarousel() {
 				let params = {
-					type: 'jalp_index'
+					type: 'gygc_index'
 				};
 				this.$api('Carousel/lists', params).then(data => {
 					if (data.status == 1) {
