@@ -106,9 +106,13 @@
 		},
 		onLoad(data) {
 			this.loadId = data.loadId;
-			this.$store.commit('setSn', {
-				ref_sn: data.sn
-			})
+			if (data.sn) {
+				this.$store.commit('setSn', {
+					ref_sn: data.sn
+				})
+			} else {
+				console.log('无sn')
+			}
 		},
 		onReady() {
 			this.loadActivity();

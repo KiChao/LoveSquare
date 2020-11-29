@@ -37,9 +37,15 @@
 			if (data.scene) {
 				let query = this.$getRequestParameters(decodeURIComponent(data.scene))
 				let sn = query.sn;
-				this.$store.commit('setSn', {
-					ref_sn: sn
-				})
+				console.log(sn)
+				if (sn) {
+					this.$store.commit('setSn', {
+						ref_sn: sn
+					})
+				} else {
+					console.log('无sn')
+				}
+			
 			}
 		},
 		onReady() {
