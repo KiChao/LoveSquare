@@ -18,6 +18,7 @@ import {
 	showLoading, //显示loading
 	showHide, //隐藏loading和toast
 	pay, //支付
+	getRequestParameters,//获取二维码上的参数
 } from 'common/tool.js'
 
 Vue.prototype.$api = port
@@ -27,6 +28,7 @@ Vue.prototype.$showModal = showModal
 Vue.prototype.$showLoading = showLoading
 Vue.prototype.$showHide = showHide
 Vue.prototype.$pay = pay;
+Vue.prototype.$getRequestParameters = getRequestParameters;
 
 //引入vuex
 import store from './store'

@@ -50,7 +50,7 @@
 		</view>
 		<view v-if="loginStatus" class="card">
 			<view class="default-window bold">
-				订单记录
+				活动记录
 			</view>
 			<view class="flex around order-window">
 				<navigator hover-class="none" url="/pages/usercenter/activityOrder/activityOrder?type=0" class="default-window">

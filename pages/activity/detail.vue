@@ -120,7 +120,7 @@
 		methods: {
 			//报名活动
 			applyActivity() {
-				if (this.radio == 0 || this.name==''||this.phone=='') {
+				if (this.name==''||this.phone=='') {
 					this.$showToast('请完整填写申请表');
 					return;
 				}
