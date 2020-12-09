@@ -103,7 +103,7 @@
 				activityList: [], //活动列表
 				articleList: [], //资讯列表
 				modalList: [], //模块图列表
-				productList:[]
+				productList: []
 			};
 		},
 		onShareAppMessage() {
@@ -115,6 +115,21 @@
 		},
 		onLoad(data) {
 			this.loadId = data.loadId;
+			let query = this.$getRequestParameters(decodeURIComponent(data.scene))
+			let sn = query.sn;
+			if (sn) {
+				this.$store.commit('setSn', {
+					ref_sn: sn
+				})
+			} else {
+				console.log('无sn')
+			}
+			let id = query.loadId;
+			if (id) {
+				this.loadId = id;
+			} else {
+				console.log('无sn')
+			}
 			if (data.sn) {
 				this.$store.commit('setSn', {
 					ref_sn: data.sn
@@ -155,16 +170,16 @@
 			},
 			//加载商品
 			loadProduct() {
-			    let params = {
-			        fisher_id: this.loadId,
-			    };
-			    this.$api('Product/lists', params).then(data => {
-			        if (data.status == 1) {
-			            this.productList = data.data.product_list;
-			        } else {
-			            this.$showModal(data.msg);
-			        }
-			    });
+				let params = {
+					fisher_id: this.loadId,
+				};
+				this.$api('Product/lists', params).then(data => {
+					if (data.status == 1) {
+						this.productList = data.data.product_list;
+					} else {
+						this.$showModal(data.msg);
+					}
+				});
 			},
 			//加载渔夫号模块
 			loadModal() {
