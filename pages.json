@@ -147,6 +147,24 @@
             }
             
         }
+        ,{
+            "path" : "pages/usercenter/rebOrder/rebOrder",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "测试订单",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/usercenter/rebOrder/rebTest",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "测试",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 
 	"globalStyle": {

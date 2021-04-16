@@ -2,7 +2,8 @@
 	<view>
 		<image :src="fisherDetail.backgroud_img" class="image" mode="widthFix"></image>
 		<view class="default-window white flex" style="align-items: flex-start;">
-			<image :src="fisherDetail.headimgurl" style="width: 100rpx;height: 100rpx;display: block;border-radius: 50%;" mode="widthFix"></image>
+			<image :src="fisherDetail.headimgurl"
+				style="width: 100rpx;height: 100rpx;display: block;border-radius: 50%;" mode="widthFix"></image>
 			<view class="name-window">
 				<view class="bold">{{fisherDetail.nickname}}</view>
 				<view>
@@ -11,35 +12,44 @@
 			</view>
 		</view>
 		<u-sticky>
-			<view class="default-window white">
-				<u-subsection @change="change" active-color="#FFFFFF" buttonColor="#fa3534" :list="list" :current="current"></u-subsection>
+			<view class="white" style="padding: 30rpx;">
+				<view class="flex around tabs">
+					<view @click="current='index'" :class="{'tabs-active':current=='index'}" class="tabs-item">首页</view>
+					<view @click="current='detail'" :class="{'tabs-active':current=='detail'}" class="tabs-item">资料</view>
+					<view @click="current=item" :class="{'tabs-active':current==item}" class="tabs-item"
+						v-for="(item,index) in tabsData" :key="index">{{tabsText[item]}}</view>
+				</view>
 			</view>
 		</u-sticky>
-		<view v-if="current==0">
+
+
+		<view v-if="current=='index'">
 			<swiper autoplay>
-				<swiper-item @click="jumpLink(item.href_type,item.href_value)" v-for="(item,index) in fisherCover" :key="index">
+				<swiper-item @click="jumpLink(item.href_type,item.href_value)" v-for="(item,index) in fisherCover"
+					:key="index">
 					<image :src="item.img_url" mode="widthFix" class="image"></image>
 				</swiper-item>
 			</swiper>
 			<view class="modal-window">
-				<view v-for="(item, index) in modalList" :key="index" @click="jumpLink(item.href_type,item.href_value)" :style="{ width: `${item.width}%` }">
+				<view v-for="(item, index) in modalList" :key="index" @click="jumpLink(item.href_type,item.href_value)"
+					:style="{ width: `${item.width}%` }">
 					<image :src="item.img_url" class="image" mode="widthFix"></image>
 				</view>
 			</view>
 		</view>
-		<view v-if="current==1">
+		<view v-if="current=='activity'">
 			<activity-list :loadlist="activityList"></activity-list>
 			<view class="default-window" v-if="activityList.length==0">
 				<u-empty text="暂无活动"></u-empty>
 			</view>
 		</view>
-		<view v-if="current==2">
+		<view v-if="current=='article'">
 			<article-list :loadlist="articleList"></article-list>
 			<view class="default-window" v-if="articleList.length==0">
 				<u-empty text="暂无资讯"></u-empty>
 			</view>
 		</view>
-		<view v-if="current==3">
+		<view v-if="current=='detail'">
 			<view class="flex white u-text-center default-window">
 				<navigator class="integral-item">
 					<view class="value">{{fisherDetail.love}}</view>
@@ -71,10 +81,29 @@
 				<view class="u-font-12 u-tips-color">{{fisherDetail.introduction}}</view>
 			</view>
 		</view>
-		<view v-if="current==4">
+		<view v-if="current=='product'">
 			<product-list :productList="productList"></product-list>
 			<view class="default-window" v-if="productList.length==0">
 				<u-empty text="暂无商品"></u-empty>
+			</view>
+		</view>
+		<view v-if="current=='reb'">
+			<view class="card" v-for="(item,index) in rebList" :key="index">
+				<image :src="item.image" mode="aspectFill" class="article-image"></image>
+				<view class="default-window">
+					<view class="bold">{{item.name}}</view>
+					<view class="flex place font-red u-font-sm">
+						<view>
+							￥{{item.price}}
+						</view>
+						<view>
+							<u-button @click="buyReb(item.reb_id)" size="mini" type="error">购买</u-button>
+						</view>
+					</view>
+				</view>
+			</view>
+			<view class="default-window" v-if="rebList.length==0">
+				<u-empty text="暂无测试套餐"></u-empty>
 			</view>
 		</view>
 	</view>
@@ -84,26 +113,23 @@
 	export default {
 		data() {
 			return {
-				list: [{
-					name: '首页',
-				}, {
-					name: '活动'
-				}, {
-					name: '资讯',
-				}, {
-					name: '资料',
-				}, {
-					name: '商品',
-				}],
-				current: 0,
+				current: 'index',
 				loadId: 0,
+				tabsData: [],
+				tabsText: {
+					product: '商品',
+					activity: '活动',
+					article: '文章',
+					'reb': '测试'
+				},
 
 				fisherCover: [], //渔夫号轮播
 				fisherDetail: {}, //渔夫号详情
 				activityList: [], //活动列表
 				articleList: [], //资讯列表
 				modalList: [], //模块图列表
-				productList: []
+				productList: [],
+				rebList: [], //测试列表
 			};
 		},
 		onShareAppMessage() {
@@ -145,8 +171,49 @@
 			this.loadArticle();
 			this.loadActivity();
 			this.loadProduct();
+
+			this.loadReb();
 		},
 		methods: {
+			//购买套餐
+			buyReb(id) {
+				this.$showModal('是否购买该套餐？', () => {
+					this.$api('RebTest/create', {
+						reb_id: id,
+						fisher_id:this.fisherDetail.fisher_id
+					}).then(data => {
+						if (data.status == 1) {
+							this.$api('Pay/reb_test_pay',{
+								no:data.data.no
+							}).then(data=>{
+								if (data.status == 1) {
+									this.$pay(data.data.response).then(data=>{
+										uni.navigateTo({
+											url:'/pages/usercenter/rebOrder/rebOrder'
+										})
+									}).catch((res)=>{
+										this.$showToast(JSON.stringify(res))
+									})
+								} else {
+									this.$showToast(data.msg);
+								}
+							})
+						} else {
+							this.$showToast(data.msg);
+						}
+					})
+				})
+			},
+			//加载套餐列表
+			loadReb() {
+				this.$api('RebTest/index').then(data => {
+					if (data.status == 1) {
+						this.rebList = data.data.reb;
+					} else {
+						this.$showModal(data.msg);
+					}
+				})
+			},
 			jumpLink(type, value) {
 				switch (type) {
 
@@ -164,9 +231,6 @@
 
 						break;
 				}
-			},
-			change(index) {
-				this.current = index;
 			},
 			//加载商品
 			loadProduct() {
@@ -215,6 +279,7 @@
 				this.$api('Fisher/detail', params).then(data => {
 					if (data.status == 1) {
 						this.fisherDetail = data.data.fisher;
+						this.tabsData = JSON.parse(this.fisherDetail.product_priv_str)
 						uni.setNavigationBarTitle({
 							title: this.fisherDetail.nickname
 						})
@@ -278,5 +343,32 @@
 			font-size: 24rpx;
 
 		}
+	}
+
+	.tabs {
+		background-color: #F8F8F8;
+		border-radius: 8rpx;
+		padding: 10rpx;
+
+		.tabs-item {
+			flex: 1;
+
+			border-radius: 8rpx;
+			padding: 16rpx;
+			text-align: center;
+		}
+
+		.tabs-active {
+			background-color: #fa3534;
+			color: #FFFFFF;
+		}
+	}
+
+	.article-image {
+		width: 100%;
+		height: 300rpx;
+		display: block;
+		border-top-left-radius: 16rpx;
+		border-top-right-radius: 16rpx;
 	}
 </style>

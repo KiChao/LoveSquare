@@ -104,6 +104,15 @@
 					<u-icon name="arrow-right"></u-icon>
 				</view>
 			</navigator>
+			<navigator hover-class="none" url="/pages/usercenter/rebOrder/rebOrder" class="default-window u-border-bottom flex place">
+				<view class="flex">
+					<u-icon name="file-text"></u-icon>
+					<view style="padding: 0 30rpx;">测试订单</view>
+				</view>
+				<view>
+					<u-icon name="arrow-right"></u-icon>
+				</view>
+			</navigator>
 			<navigator hover-class="none" url="/pages/fisher/detail?loadId=101" class="default-window u-border-bottom flex place">
 				<view class="flex">
 					<u-icon name="heart"></u-icon>

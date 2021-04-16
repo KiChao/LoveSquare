@@ -19,6 +19,10 @@
 			<view class="u-font-sm u-tips-color">{{activityDetail.b_start_time}} 至 {{activityDetail.b_end_time}}</view>
 		</view>
 		<view class="default-window white u-border-bottom">
+			<view>活动地址</view>
+			<view class="u-font-sm u-tips-color">{{activityDetail.address}}</view>
+		</view>
+		<view class="default-window white u-border-bottom">
 			<view>报名时间</view>
 			<view class="u-font-sm u-tips-color">{{activityDetail.a_start_time}} 至 {{activityDetail.a_end_time}}</view>
 		</view>
