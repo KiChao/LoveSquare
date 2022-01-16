@@ -28,7 +28,20 @@
 				</view>
 			</view>
 		</view>
-
+		<u-popup v-model="answerShow" mode="top" closeable>
+			<scroll-view scroll-y="true" style="height: 100vh;">
+				<view class="default-window">
+					<view v-for="(item,index) in answer" :key="index" class="flex" style="margin-bottom: 30rpx;">
+						<view style="flex: 1;">
+							<image :src="item.image" mode="widthFix" class="image"></image>
+						</view>
+						<view style="flex: 1;" class="default-window">
+							{{item.result}}
+						</view>
+					</view>
+				</view>
+			</scroll-view>
+		</u-popup>
 		<u-popup v-model="show" mode="center">
 			<view class="default-window">
 				<u-field v-model="name" label="姓名" placeholder="请填写您的姓名"></u-field>
@@ -47,6 +60,8 @@
 				show: false,
 				name: '',
 				reb_test_id: '',
+				answerShow: false,
+				answer: []
 			};
 		},
 		onShow() {
@@ -54,13 +69,15 @@
 		},
 		methods: {
 			//查看结果
-			checkResult(id){
-				this.$api('RebTest/result',{
+			checkResult(id) {
+				this.$api('RebTest/result', {
 					reb_test_id: id
 				}).then(data => {
-					
+
 					if (data.status == 1) {
-						this.$showModal(data.data.result);
+						this.answerShow = true;
+						// this.$showModal(data.data.result);
+						this.answer = data.data.result;
 					} else {
 						this.$showToast(data.msg);
 					}
@@ -81,7 +98,7 @@
 			//加载测试订单
 			loadOrder() {
 				this.$api('RebTest/lists').then(data => {
-					
+
 					if (data.status == 1) {
 						this.rebOrder = data.data.test_list;
 					} else {

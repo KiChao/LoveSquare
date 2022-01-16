@@ -1,13 +1,15 @@
 <template>
 	<view>
 		<swiper style="height: 56vw;" autoplay>
-			<swiper-item @click="jumpLink(item.href_type,item.href_value,item.href_path)" v-for="(item,index) in carouselList" :key="index">
+			<swiper-item @click="jumpLink(item.href_type,item.href_value,item.href_path)"
+				v-for="(item,index) in carouselList" :key="index">
 				<image :src="item.img_url" class="image" mode="widthFix"></image>
 			</swiper-item>
 		</swiper>
 		<view>
-			<navigator hover-class="none" :url="`/pages/fisher/detail?loadId=${item.fisher_id}`" v-for="(item,index) in fisherList"
-			 :key="index" class="card flex default-window" style="align-items: flex-start;">
+			<navigator hover-class="none" :url="`/pages/fisher/detail?loadId=${item.fisher_id}`"
+				v-for="(item,index) in fisherList" :key="index" class="card flex default-window"
+				style="align-items: flex-start;">
 				<view class="head-window">
 					<image :src="item.headimgurl" class="head" mode="widthFix"></image>
 				</view>
@@ -26,14 +28,18 @@
 			return {
 				carouselList: [],
 				fisherList: [],
+				page: 0
 			};
 		},
 		onReady() {
 			this.loadCarousel();
 			this.loadFisherList();
 		},
+		onReachBottom() {
+			this.loadFisherList();
+		},
 		methods: {
-			jumpLink(type, value,path = 'pages/index/index') {
+			jumpLink(type, value, path = 'pages/index/index') {
 				switch (type) {
 
 					case 'article':
@@ -78,9 +84,15 @@
 			},
 			//加载公益组织列表
 			loadFisherList() {
-				this.$api('GYGCFisher/index').then(data => {
-					console.log(data);
-					this.fisherList = data.data.fisher_list;
+				this.page = this.page + 1;
+				this.$api('GYGCFisher/index',{
+					page:this.page
+				}).then(data => {
+					let list=data.data.fisher_list;
+					list.forEach(item=>{
+						this.fisherList.push(item)
+					})
+					// this.fisherList = 
 				});
 			},
 		}

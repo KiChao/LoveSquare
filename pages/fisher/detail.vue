@@ -279,7 +279,7 @@
 				this.$api('Fisher/detail', params).then(data => {
 					if (data.status == 1) {
 						this.fisherDetail = data.data.fisher;
-						this.tabsData = JSON.parse(this.fisherDetail.product_priv_str)
+						this.tabsData = this.fisherDetail.product_priv_str
 						uni.setNavigationBarTitle({
 							title: this.fisherDetail.nickname
 						})

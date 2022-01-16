@@ -75,6 +75,11 @@
 							url: '/pages/activity/detail?loadId=' + value
 						})
 						break;
+						case 'fisher':
+							uni.navigateTo({
+								url: '/pages/fisher/detail?loadId=' + value
+							})
+							break;
 					case 'miniProgram':
 						wx.navigateToMiniProgram({
 							appId: value,
